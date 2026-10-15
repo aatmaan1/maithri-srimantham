@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kodam Family//Shrimantam Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:maithri-anuj-shrimantam-20261021@kodam-family
+DTSTAMP:20261016T000000Z
+DTSTART:20261021T060000Z
+SUMMARY:Maithri and Anuj - Shrimantam
+LOCATION:Banquet Hall\, Clubhouse\, Bollineni Bion\, Kondapur\, Hyderabad (
+ beside AMB Mall)
+DESCRIPTION:Hosted by the Kodam family. Some ceremonies will be held at hom
+ e\, Flat B-2012.\nMap: https://share.google/kj0IQgIePO6fNQxU0
+URL:https://share.google/kj0IQgIePO6fNQxU0
+END:VEVENT
+END:VCALENDAR
