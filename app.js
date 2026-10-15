@@ -10,6 +10,11 @@ function updateMusic(on){$('music').setAttribute('aria-pressed',String(on));$('m
 async function startMusic(){if(musicUserMuted)return;audio.volume=.4;try{await audio.play();updateMusic(!audio.paused)}catch{updateMusic(false)}}
 $('music').addEventListener('click',()=>{if(!audio.paused){musicUserMuted=true;audio.pause()}else{musicUserMuted=false;startMusic()}});
 audio.addEventListener('play',()=>updateMusic(true));audio.addEventListener('pause',()=>updateMusic(false));audio.addEventListener('error',()=>updateMusic(false));
+// Try on arrival; browsers that require activation retry on the first interaction.
+function startMusicOnInteraction(event){if(event.target.closest?.('#music')||musicUserMuted||!audio.paused)return;startMusic()}
+for(const type of ['click','touchend','keydown'])document.addEventListener(type,startMusicOnInteraction,{passive:true});
+audio.addEventListener('play',()=>{for(const type of ['click','touchend','keydown'])document.removeEventListener(type,startMusicOnInteraction)});
+startMusic();
 const names=['The heavens','The divine journey','Becoming light','The first home','Growing in love','A celebration awaits','The Shrimantam ceremony','Family blessings'];
 $('scene-nav').innerHTML=names.map((name,i)=>`<button type="button" aria-label="${name}" data-scene="${i}" title="${name}"></button>`).join('');
 const dots=[...$('scene-nav').querySelectorAll('button')];
