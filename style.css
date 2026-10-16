@@ -1,3 +1,39 @@
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/invitation-0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/invitation-1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/invitation-2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Great Vibes';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/invitation-3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Serif Telugu';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/invitation-4.ttf) format('truetype');
+}
+
 :root{color-scheme:light;--ink:#493a2c;--gold:#9e713b;--paper:#fcf5e9;--line:#b4915c40}
 *{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}button,a,input{-webkit-tap-highlight-color:transparent}button,a{touch-action:manipulation}button{font:inherit}button:focus-visible,a:focus-visible{outline:3px solid #664720;outline-offset:5px}svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}img{display:block}button{cursor:pointer}a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link{position:fixed;left:20px;top:-80px;background:var(--paper);padding:14px 20px;z-index:100}.skip-link:focus{top:20px}
 .loader{position:fixed;inset:0;z-index:99;background:#fff4e3;display:grid;place-items:center;transition:opacity .7s,visibility .7s}.loader>span:first-child{width:32px;height:32px;border:1px solid #a37a3c33;border-top-color:#a37a3c;border-radius:50%;animation:spin 1.2s linear infinite}body:not(.loading) .loader{opacity:0;visibility:hidden;pointer-events:none}@keyframes spin{to{transform:rotate(360deg)}}
@@ -17,3 +53,26 @@
 
 /* Keep a single music toggle available alongside the final invitation. */
 .story-finished .playback{opacity:1;visibility:visible;pointer-events:auto;left:auto;right:18px;translate:none;color:#7b603b;background:#f8eedfdd;border-color:#b4915c40}.story-finished .playback #replay,.story-finished .playback #play,.story-finished .playback #skip{display:none}#music-slash[hidden]{display:none}
+
+/* A floral invitation, with calligraphic names and Telugu display lettering. */
+.invitation{padding-top:clamp(210px,26vw,365px);background:radial-gradient(ellipse at 50% 20%,#fffcf4 15%,#fff1db 75%,#f5dfbc);font-family:'Cormorant Garamond',Georgia,serif}
+.invitation:before{content:'';position:absolute;inset:145px max(28px,calc((100% - 1120px)/2)) 130px;border:1px solid #bb8e5055;border-radius:48% 48% 12px 12px / 190px 190px 12px 12px;pointer-events:none}
+.invite-garland{position:absolute;top:0;left:50%;translate:-50% 0;width:min(100%,1500px);height:auto;pointer-events:none;z-index:3}
+.invite-inner{max-width:780px}
+.invitation .ornament{display:none}
+.invitation .invite-welcome{font-family:'Cormorant Garamond',Georgia,serif;text-transform:none;font-size:clamp(19px,2.3vw,26px);line-height:1.4;letter-spacing:.01em;color:#765335;max-width:440px;margin:0 auto 26px}
+.invite-welcome strong{font-weight:600;color:#743329}
+.invitation h2{color:#4c6039}
+.invite-name{display:block;font:400 clamp(76px,9vw,115px)/1.15 'Great Vibes',cursive;color:#8b3c43;margin:0 0 4px;padding:0 15px}
+.invitation h2 [lang=te]{font-family:'Noto Serif Telugu',serif;font-size:clamp(42px,6vw,72px);font-weight:500;line-height:1.6;text-shadow:0 2px 0 #fff8e9}
+.invitation .english-title{font:500 14px/1.5 'Cormorant Garamond',serif;letter-spacing:.22em;text-transform:uppercase;color:#9a733b;margin-top:0}
+.invitation-intro{font-size:21px;margin:20px 0 4px;color:#806646}
+.invite-ritual{width:clamp(180px,22vw,270px);height:auto;margin:10px auto 18px;filter:drop-shadow(0 8px 12px #7e4d1915)}
+.invitation h3{font-size:36px;font-weight:500;letter-spacing:0;color:#713e36;margin-bottom:4px}
+.invitation .parents-label{font:16px/1.5 'Cormorant Garamond',serif;margin-bottom:24px;color:#7e694d}
+.date-line{padding:20px 0;margin-bottom:28px;border-color:#b88c5455}.date-line span{font-size:19px}.date-line strong{font-size:28px;font-weight:600;color:#713e36}
+.venue .eyebrow{color:#6c784a;font-size:11px;font-weight:600;letter-spacing:.24em}.venue-name{font-size:30px!important}.venue p{font-size:22px}.landmark{font-size:19px}.home-note{font-size:20px;margin:22px 0}.closing{font-size:22px;color:#826443}.invite-actions a{border-radius:24px}.primary-button{background:#566743;border-color:#566743!important}.primary-button:hover{background:#435332}
+.invitation-flowers{margin-top:-270px}
+@media(max-width:700px){
+ .invitation{padding-top:135px;padding-inline:24px}.invite-garland{width:125%;max-width:none}.invitation:before{inset:70px 12px 90px;border-radius:48% 48% 12px 12px / 120px 120px 12px 12px}.invitation .invite-welcome{font-size:19px;max-width:255px;margin-bottom:24px}.invite-name{font-size:79px}.invitation h2 [lang=te]{font-size:46px}.invitation .english-title{font-size:11px}.invitation-intro{font-size:18px;margin-top:18px}.invite-ritual{width:195px;margin:8px auto 18px}.invitation h3{font-size:30px}.invitation .parents-label{font-size:15px}.date-line{padding:19px 0}.date-line time{gap:10px}.date-line span{font-size:17px}.date-line strong{font-size:23px}.venue-name{font-size:27px!important}.venue p{font-size:20px}.landmark{font-size:17px}.home-note{font-size:18px}.closing{font-size:19px}.invitation-flowers{margin-top:-75px;width:calc(100% + 48px);margin-inline:-24px}
+}
