@@ -76,3 +76,22 @@
 @media(max-width:700px){
  .invitation{padding-top:44vw;padding-inline:24px}.invite-garland{width:125%;max-width:none}.invitation:before{inset:70px 12px 90px;border-radius:48% 48% 12px 12px / 120px 120px 12px 12px}.invitation .invite-welcome{font-size:19px;max-width:255px;margin-bottom:24px}.invite-name{font-size:79px}.invitation h2 [lang=te]{font-size:46px}.invitation .english-title{font-size:11px}.invitation-intro{font-size:18px;margin-top:18px}.invite-ritual{width:195px;margin:8px auto 18px}.invitation h3{font-size:30px}.invitation .parents-label{font-size:15px}.date-line{padding:19px 0}.date-line time{gap:10px}.date-line span{font-size:17px}.date-line strong{font-size:23px}.venue-name{font-size:27px!important}.venue p{font-size:20px}.landmark{font-size:17px}.home-note{font-size:18px}.closing{font-size:19px}.invitation-flowers{margin-top:-75px;width:calc(100% + 48px);margin-inline:-24px}
 }
+
+/* Mobile composition: retain each cutout's natural proportions. */
+.mother,.relative,.seated,.lamp{object-fit:contain}
+.seated{max-width:none}
+.journey-title{position:absolute;left:50%;top:25%;width:min(90%,620px);text-align:center;pointer-events:none;will-change:transform,opacity}
+.journey-title .invite-name{font-size:clamp(58px,7vw,92px);color:#79513a;margin-bottom:10px;text-shadow:0 2px 18px #fff5dacc}
+.journey-title [lang=te]{display:block;font:500 clamp(36px,4vw,54px)/1.6 'Noto Serif Telugu',serif;color:#745339;text-shadow:0 2px 18px #fff5dacc}
+.journey-title .english-title{font:500 11px/1.5 'Cormorant Garamond',serif;letter-spacing:.2em;text-transform:uppercase;color:#79583e;margin-top:4px}
+.invitation.title-waiting #invitation-title{opacity:0;transform:translateY(36px)}
+.invitation.title-returned #invitation-title{animation:title-return 1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes title-return{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+ .mother,.relative,.seated{width:auto;max-width:none;object-fit:contain}
+ .mother{left:52%;height:86%}
+ .left-mother{left:14%}.right-mother{left:85%}.father{left:33%}.seated{left:55%;height:60%}
+ .journey-title{top:23%;width:94%}.journey-title .invite-name{font-size:clamp(62px,17vw,86px);margin-bottom:8px}.journey-title [lang=te]{font-size:clamp(36px,10.5vw,49px)}.journey-title .english-title{font-size:10px}
+ #baby1{top:57%}
+}
+@media(prefers-reduced-motion:reduce){.invitation.title-waiting #invitation-title{opacity:1;transform:none}}
