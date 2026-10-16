@@ -95,3 +95,6 @@
  #baby1{top:57%}
 }
 @media(prefers-reduced-motion:reduce){.invitation.title-waiting #invitation-title{opacity:1;transform:none}}
+
+.invitation .grandparents h3{font-size:30px}.invitation .grandparents .parents-label{margin-bottom:30px}
+@media(max-width:700px){.invitation .grandparents h3{font-size:27px}}
