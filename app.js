@@ -4,7 +4,7 @@ const {clamp,smooth,mix,opacity,phase}=JourneyMath;
 const $=id=>document.getElementById(id),scenes=[...document.querySelectorAll('.scene')],phases=[...document.querySelectorAll('.phase')];
 const journey=$('journey'),stage=$('stage'),invitation=$('invitation'),canvas=$('particles'),ctx=canvas.getContext('2d');
 const reduceQuery=matchMedia('(prefers-reduced-motion: reduce)'),mobileQuery=matchMedia('(max-width: 700px)');
-let reduced=reduceQuery.matches,mobile=mobileQuery.matches,range=1,top=0,target=0,current=0,previous=0,playing=false,raf=0,dirty=true,ready=false,visible=!document.hidden,pointerX=0,pointerY=0,w=1,h=1,dpr=1,elapsed=0;
+let reduced=reduceQuery.matches,mobile=mobileQuery.matches,range=1,top=0,finish=0,target=0,current=0,previous=0,playing=false,raf=0,dirty=true,ready=false,visible=!document.hidden,pointerX=0,pointerY=0,w=1,h=1,dpr=1,elapsed=0;
 const audio=$('flute');let musicUserMuted=false,resumeMusicAfterVisibility=false;
 function updateMusic(on){$('music').setAttribute('aria-pressed',String(on));$('music').setAttribute('aria-label',on?'Mute flute music':'Play flute music');$('music').title=on?'Mute flute music':'Play flute music';$('music-slash').toggleAttribute('hidden',on);}
 async function startMusic(){if(musicUserMuted)return;audio.volume=.4;try{await audio.play();updateMusic(!audio.paused)}catch{updateMusic(false)}}
@@ -19,7 +19,7 @@ const names=['The heavens','The divine journey','Becoming light','The first home
 $('scene-nav').innerHTML=names.map((name,i)=>`<button type="button" aria-label="${name}" data-scene="${i}" title="${name}"></button>`).join('');
 const dots=[...$('scene-nav').querySelectorAll('button')];
 const particles=Array.from({length:mobile?40:75},(_,i)=>({x:((i*73.173)%997)/997,y:((i*139.7)%991)/991,z:.2+(i%7)/8,r:.65+(i%5)*.35,phase:i*2.399}));
-function measure(){top=journey.offsetTop;range=Math.max(1,journey.offsetHeight-stage.clientHeight);w=stage.clientWidth;h=stage.clientHeight;dpr=Math.min(devicePixelRatio||1,1.7);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx?.setTransform(dpr,0,0,dpr,0,0);dirty=true;wake()}
+function measure(){top=journey.offsetTop;range=Math.max(1,journey.offsetHeight-stage.clientHeight);const viewportHeight=window.visualViewport?.height||innerHeight;const namesBottom=scrollY+$('family-names').getBoundingClientRect().bottom;finish=Math.min(Math.max(0,document.documentElement.scrollHeight-viewportHeight),Math.max(invitation.offsetTop,namesBottom-viewportHeight+Math.max(64,viewportHeight*.08)));w=stage.clientWidth;h=stage.clientHeight;dpr=Math.min(devicePixelRatio||1,1.7);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx?.setTransform(dpr,0,0,dpr,0,0);dirty=true;wake()}
 function move(id,x=0,y=0,s=1,r=0){const el=$(id);if(!el)return;el.style.transform=`translate3d(${reduced?0:x}vw,${reduced?0:y}vh,0) scale(${reduced?1:s}) rotate(${reduced?0:r}deg)`}
 function alpha(id,a){$(id).style.opacity=clamp(a)}
 function pulse(t){return reduced?1:1+Math.sin(t*2.8)*.035}
@@ -62,7 +62,7 @@ function scrollToTimeline(t){setPlaying(false);window.scrollTo({top:top+range*cl
 function tick(now){
  raf=0;if(!visible)return;
  const dt=previous?Math.min(50,now-previous):16.67;previous=now;elapsed+=dt/1000;
- if(playing&&ready){const end=invitation.offsetTop;const next=Math.min(end,scrollY+dt*(range+stage.clientHeight)/19200);window.scrollTo(0,next);if(next>=end-1)setPlaying(false);}
+ if(playing&&ready){const end=finish;const next=Math.min(end,scrollY+dt*(range+stage.clientHeight)/19200);window.scrollTo(0,next);if(next>=end-1)setPlaying(false);}
  target=clamp((scrollY-top)/range*8,0,8);current=reduced?target:current+(target-current)*(1-Math.exp(-dt/105));if(Math.abs(target-current)<.00003)current=target;
  const inStory=scrollY<invitation.offsetTop+80;
  if(dirty||inStory||Math.abs(current-target)>.00003){render(current,elapsed);dirty=false;}
@@ -86,5 +86,8 @@ if('IntersectionObserver' in window&&!reduced){
  const titleObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){invitation.classList.remove('title-waiting');invitation.classList.add('title-returned');titleObserver.disconnect()}},{threshold:.25});
  invitation.classList.add('title-waiting');titleObserver.observe($('invitation-title'));
 }
+invitation.addEventListener('load',measure,true);
+document.fonts?.ready.then(measure);
+window.visualViewport?.addEventListener('resize',measure);
 measure();setPlaying(true);load();
 })();
