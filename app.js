@@ -62,7 +62,7 @@ function scrollToTimeline(t){setPlaying(false);window.scrollTo({top:top+range*cl
 function tick(now){
  raf=0;if(!visible)return;
  const dt=previous?Math.min(50,now-previous):16.67;previous=now;elapsed+=dt/1000;
- if(playing&&ready){const end=invitation.offsetTop;const next=Math.min(end,scrollY+dt*(range+stage.clientHeight)/96000);window.scrollTo(0,next);if(next>=end-1)setPlaying(false);}
+ if(playing&&ready){const end=invitation.offsetTop;const next=Math.min(end,scrollY+dt*(range+stage.clientHeight)/19200);window.scrollTo(0,next);if(next>=end-1)setPlaying(false);}
  target=clamp((scrollY-top)/range*8,0,8);current=reduced?target:current+(target-current)*(1-Math.exp(-dt/105));if(Math.abs(target-current)<.00003)current=target;
  const inStory=scrollY<invitation.offsetTop+80;
  if(dirty||inStory||Math.abs(current-target)>.00003){render(current,elapsed);dirty=false;}
@@ -81,5 +81,5 @@ $('replay').addEventListener('click',()=>scrollToTimeline(0));$('revisit').addEv
 $('skip').addEventListener('click',e=>{e.preventDefault();setPlaying(false);invitation.scrollIntoView({behavior:reduced?'instant':'smooth'});setTimeout(()=>{$('invitation-title').setAttribute('tabindex','-1');$('invitation-title').focus({preventScroll:true})},reduced?0:800)});
 dots.forEach((el,i)=>el.addEventListener('click',()=>scrollToTimeline(i+.4)));
 async function load(){const primary=[$('sky1'),$('baby1'),$('near1')];await Promise.race([Promise.allSettled(primary.map(img=>img.decode?.())),new Promise(resolve=>setTimeout(resolve,4500))]);ready=true;document.body.classList.remove('loading');measure()}
-measure();load();
+measure();setPlaying(true);load();
 })();
